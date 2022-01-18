@@ -1,0 +1,46 @@
+debug: true
+---
+app:
+  version: @project.version@
+---
+server:
+  port: 8081
+spring:
+  banner:
+    # Custom Banner
+    location: classpath:banner.txt
+---
+# Health check actuator
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: "*"
+    web:
+      exposure:
+        include: "*"
+---
+# Custom settings DISABLED
+nft-bot-2:
+  credentialsTwitter:
+    apiKey: ZDthUbgT4RxJ3uHiJDrTbfHgB
+    apiKeySecret: sKLey3hUPeMT0kaqzGqYJVvDLeWL0FICOitg3oBo6TTtlxascC
+    accessToken: 1444010486618525697-ulR7EoxBBzEPFKI3LdlY0RfCxaInmZ
+    accessTokenSecret: pNwygTbCh8n5gc4mlCFpRGbRolHumiF785aPEaLaPGpui
+  discord:
+    token: "ODg1MzE2NjE1MjEyNzY5Mjgx.YTlRWQ.Wz4efIUN3RX-_D1RlczaDJDIJQk"
+    commandPrefix: "#"
+  listings:
+    ##################################
+    # Zora Listing
+    - contractAddress: "0xc141fbc08f629cfafce6bc63bc4acb59212f5da4"
+      interval: 20000
+      serverId: 885271699333976084
+      serverTextChannel: "zora-beta"
+      rolePings: false
+      showAll: true
+      zoraListing: true
+      zoraQueryUrl: ""
+      zoraRawQuery: ""
+      zoraCollectionUrl: ""
+    ##################################

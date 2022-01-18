@@ -1,0 +1,17 @@
+spring:
+  banner:
+    # Custom Banner
+    location: classpath:banner.txt
+---
+app:
+  version: @project.version@
+---
+# Health check acuator
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: "*"
+    web:
+      exposure:
+        include: "*"

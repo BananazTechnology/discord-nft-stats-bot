@@ -1,0 +1,23 @@
+// Simplify: https://jsonformatter.org/
+// String-ify: https://onlinejsontools.com/stringify-json 
+// For IDE: -Dspring.application.json="{\"spring\":{\"profiles\":{\"active\":\"dev\"}},\"nft-bot\":{\"apiKeyOpensea\":\"d2feaeeba3064812a1ba8ec2fe6046e3\",\"discord\":{\"token\":\"ODg1MzE2NjE1MjEyNzY5Mjgx.YTlRWQ.Wz4efIUN3RX-_D1RlczaDJDIJQk\",\"commandPrefix\":\"%\"},\"stats[0]\":{\"contractAddress\":\"0x2acab3dea77832c09420663b0e1cb386031ba17b\",\"interval\":\"15000\",\"enableHolders\":true,\"holdersOutputChannelId\":\"922252219716341830\"}}}"
+{
+  "spring": {
+    "profiles": {
+      "active": "dev"
+    }
+  },
+  "nft-bot": {
+    "apiKeyOpensea": "d2feaeeba3064812a1ba8ec2fe6046e3",
+    "discord": {
+      "token": "ODg1MzE2NjE1MjEyNzY5Mjgx.YTlRWQ.Wz4efIUN3RX-_D1RlczaDJDIJQk",
+      "commandPrefix": "%"
+    },
+    "stats[0]": {
+      "contractAddress": "0x2acab3dea77832c09420663b0e1cb386031ba17b",
+      "interval": "15000",
+      "enableHolders": true,
+      "holdersOutputChannelId": "922252219716341830"
+    }
+  }
+}

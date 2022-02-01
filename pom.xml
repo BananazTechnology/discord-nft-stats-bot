@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.aaronrenner</groupId>
 	<artifactId>discord-nft-stats-bot</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>discord-nft-stats-bot</name>
 	<description>A Discord bot made with javacord, featuring use of the OpenSea API!</description>
 	<properties>

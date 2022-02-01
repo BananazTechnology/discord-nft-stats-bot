@@ -12,32 +12,33 @@
   
 ## Introduction
 
-This Java application is built on the Spring-Boot framework! This project interacts with Discord commands or startup objects in the application.yml to monitor NFT listings and write them to a Discord channel, see *How-TO* below for more details.
+This Java application is built on the Spring-Boot framework! This project interacts with Discord commands or startup objects in the application.yml to monitor NFT contracts and write stats to a Discord channel, see *How-TO* below for more details.
 
 ## Setup
-### Application.yml Setup
+### Properties
 The following document formatting MUST REMAIN THE SAME, replace or add only where noted to!
 Tips:
-* You MUST have this Discord bots role above `LOW, MEDIUM, HIGH`.
-* The position of the `discord` and `listings` items below `nft-bot` are essential!
+* The position of the `discord` and `stats` items below `nft-bot` are essential!
 
 ``` yaml
 # Custom
 nft-bot:
   apiKeyOpensea: <Required for runtime>
-  discord¹:
+  discord:
     token: <DISCORD-TOKEN>
     commandPrefix: <DISCORD-COMMAND-PREFIX>
-  listings:
+  stats:
     - contractAddress: <PLACE A ERC-721 CONTRACT ADDRESS>
       interval: <PLACE INTERVAL IN MS: EX. 30000 = 30 SECONDS>
-      server: <PLACE SERVER NAME WHERE OUTPUT WILL GO>
       enableHolders*: <boolean to enable the next value>
       holdersOutputChannelId*: <Discord channel id>
-    - [...] <CAN SUPPORT INFINITE LISTINGS>
+    - [...] <CAN SUPPORT INFINITE STATS>
     
 (*) = is optional
 ```
+
+### Running PROD
+Setup the `SPRING_APPLICATION_JSON` value in the Docker-Compose. See example docker-compose.yaml in this project.
 
 ### Running the Project
 
@@ -57,6 +58,8 @@ You can also use the built in Maven wrapper and execute the project by following
 
 Download Lombok to your IDE or VS Code Extension!
 
+Use the IDE "Run Configuration" to setup the `-Dspring.application.json` (eclipse example) in the Environment Properties
+
 ### Creating a Docker Image
 
 To build a container that can execute the application from a safe location you can use my supplied [Dockerfile](Dockerfile) to do so. You should follow the guides first to better understand some of these arguments.
@@ -66,42 +69,3 @@ CMD [ "java", \
         "-jar", \
         "discord-nft-bot.jar"]
 ```
-
-## Libraries
-
-### Jump To
-* [Required Dependencies](#spring-boot-required)
-* [Lombok](#lombok)
-* [JSON-Smart](#json-smart)
-* [Javacord](#javacord)
-
-### Spring-Boot Required
-<details><summary>Lombok</summary>
-* [Lombok - Automated Class Method Generation](https://projectlombok.org/features/all)
-```pom
-<dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <optional>true</optional>
-</dependency>
-```
-</details>
-<details><summary>JSON-Smart</summary>
-* [JSON Parser JAVADOC](https://javadoc.io/doc/net.minidev/json-smart/latest/index.html)
-```pom
-<dependency>
-    <groupId>net.minidev</groupId>
-    <artifactId>json-smart</artifactId>
-</dependency>
-```
-</details>
-<details><summary>Javacord</summary>
-* [Javacord - An easy to use multithreaded library for creating Discord bots in Java](https://github.com/Javacord/Javacord/)
-```pom
-<dependency>
-    <groupId>org.javacord</groupId>
-    <artifactId>javacord</artifactId>
-    <type>pom</type>
-</dependency>
-```
-</details>

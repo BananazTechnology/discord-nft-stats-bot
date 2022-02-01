@@ -2,6 +2,7 @@
 * Description: A Discord bot made with @Javacord and @ProjectOpenSea API!
 * Version: (Check main for release or develop for dev)
 * Creator: Aaron Renner
+* THIS BRANCH IS ONLY FOR STATISTICS
 
 ### Table of Contents
 * [Introduction](#introduction)
@@ -14,10 +15,13 @@
 
 This Java application is built on the Spring-Boot framework! This project interacts with Discord commands or startup objects in the application.yml to monitor NFT contracts and write stats to a Discord channel, see *How-TO* below for more details.
 
+THIS BRANCH IS ONLY FOR STATISTICS
+
 ## Setup
 ### Properties
 The following document formatting MUST REMAIN THE SAME, replace or add only where noted to!
 Tips:
+* THIS BRANCH IS ONLY FOR STATISTICS
 * The position of the `discord` and `stats` items below `nft-bot` are essential!
 
 ``` yaml

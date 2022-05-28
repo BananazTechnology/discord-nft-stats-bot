@@ -1,3 +1,5 @@
+[![SOFT](https://github.com/Aman7123/discord-nft-stats-bot/actions/workflows/SOFT.yml/badge.svg?branch=develop)](https://github.com/Aman7123/discord-nft-stats-bot/actions/workflows/SOFT.yml)[![RELEASE](https://github.com/Aman7123/discord-nft-stats-bot/actions/workflows/RELEASE.yml/badge.svg?branch=main)](https://github.com/Aman7123/discord-nft-stats-bot/actions/workflows/RELEASE.yml)
+
 # Discord NFT Stats Bot
 * Description: A Discord bot made with @Javacord and @ProjectOpenSea API!
 * Version: (Check main for release or develop for dev)
@@ -33,6 +35,7 @@ nft-bot:
     commandPrefix: <DISCORD-COMMAND-PREFIX>
   stats:
     - contractAddress: <PLACE A ERC-721 CONTRACT ADDRESS>
+      contractSlug: <for SOL. Overrides the contractAddress value above>
       interval: <PLACE INTERVAL IN MS: EX. 30000 = 30 SECONDS>
       enableHolders*: <boolean to enable the next value>
       holdersOutputChannelId*: <Discord channel id>

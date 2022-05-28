@@ -6,6 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.aaronrenner.discordnftbot.discord.DiscordBot;
 import com.aaronrenner.discordnftbot.models.Contract;
+import com.aaronrenner.discordnftbot.models.Ticker;
+import com.aaronrenner.discordnftbot.utils.OpenseaUtils;
+
+import net.minidev.json.JSONObject;
 
 public class StatsScheduler extends TimerTask {
 
@@ -31,8 +35,7 @@ public class StatsScheduler extends TimerTask {
 	public void run() {
 		try {
 			if(this.bindingContract != null && this.active) {
-				updateFloor();
-				if(this.bindingContract.isEnableHolders()) updateHolders();
+				updateInfo();
 			}
 		} catch (Exception e) {
 			LOGGER.error(String.format("Failed during get listing: %s, stack: %s", this.bindingContract.getContractAddress(), Arrays.toString(e.getStackTrace()))); 
@@ -59,14 +62,29 @@ public class StatsScheduler extends TimerTask {
 		return active;
 	}
 	
-	private void updateFloor() {
+	private void updateInfo() throws Exception {
 		logInfo();
-		this.bot.updateStatus(this.bindingContract);
-	}
-	
-	private void updateHolders() {
-		logInfo();
-		this.bot.updateHolders(this.bindingContract);
+		/** Make request */
+		OpenseaUtils api = new OpenseaUtils(this.bindingContract.getOpenseaApiKey());
+		JSONObject getCollectionStats = 
+				(this.bindingContract.getIsSlug()) ? api.getCollectionStatsBySlug(this.bindingContract.getContractAddress()) :
+					api.getCollectionStatsByContractAddress(this.bindingContract.getContractAddress());
+		JSONObject getStats = (JSONObject) getCollectionStats.get("stats");
+		/** Get statistic items */
+		// Floor
+		String collectionFloor = getStats.getAsString("floor_price");
+		String tickerSymbol    = 
+				(this.bindingContract.getIsSlug()) ?
+						Ticker.SOL.getSymbol() :
+							Ticker.ETH.getSymbol();
+		String floorValue = String.format("%s%s", collectionFloor, tickerSymbol);
+		this.bot.updateStatus(floorValue);
+		
+
+		String holders = getStats.getAsString("num_owners");
+		if(this.bindingContract.isEnableHolders()) {
+			this.bot.updateHolders(this.bindingContract.getServerChannel(), holders);
+		}
 	}
 	
 	private void logInfo() {

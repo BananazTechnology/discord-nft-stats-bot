@@ -1,10 +1,16 @@
 package com.aaronrenner.discordnftbot.models;
 
+/**
+ * 
+ * @author aaronrenner
+ * @version 1.0.1
+ */
 public enum Ticker {
     ETH("eth", "Ξ"),
     WETH("weth", "Ξ"),
     BTC("btc", "₿"),
-    DAI("dai", "◈");
+    DAI("dai", "◈"),
+    SOL("sol", "◎");
 
     private String ticker;
     private String symbol;

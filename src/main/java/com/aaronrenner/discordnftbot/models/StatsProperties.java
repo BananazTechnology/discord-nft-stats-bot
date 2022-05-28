@@ -15,6 +15,7 @@ public class StatsProperties {
 	/** Declared FINAL variables */
 	private static final int FIELDSCOUNT = 3;
 	private static final String CONTRACTADDRESS = "contractAddress";
+	private static final String COLLECTIONSLUG  = "collectionSlug";
 	private static final String INTERVAL = "interval";
 	private static final String ENABLEHOLDERS = "enableHolders";
 	private static final String HOLDERSOUTPUT = "holdersOutputChannelId";
@@ -29,8 +30,17 @@ public class StatsProperties {
 					try {
 					
 						/** Validation and setting of contractAddress */
-						String contractAddress = contract.get(CONTRACTADDRESS).toString();
-						if(!contractAddress.matches("^0x[a-fA-F0-9]{40}$")) throw new RuntimeException("Check contractAddress " + contractAddress + ", does not match ^0x[a-fA-F0-9]{40}$!");
+						String contractAddress = (String) contract.get(CONTRACTADDRESS);
+						String collectionSlug  = (String) contract.get(COLLECTIONSLUG);
+						String searchString;
+						Boolean isSlug = false;
+						if(contractAddress != null) {
+							searchString = contractAddress;
+							if(!contractAddress.matches("^[a-zA-Z0-9]{30,43}$")) throw new RuntimeException("Check contractAddress " + contractAddress + ", does not match ^[a-zA-Z0-9]{30,43}$!");
+						} else {
+							searchString = collectionSlug;
+							isSlug = true;
+						}
 						
 						/** Validation and setting of contractAddress */
 						int interval = Integer.valueOf(contract.get(INTERVAL).toString());
@@ -65,7 +75,7 @@ public class StatsProperties {
 						}
 						
 						/** If no server or outputChannel then throw exception */
-						Contract newContract = new Contract(contractAddress, interval);
+						Contract newContract = new Contract(searchString, interval);
 						newContract.setOpenseaApiKey(apiKeyOpensea);
 						if(bot != null) newContract.setBot(bot);
 						newContract.setEnableHolders(enableHolders);
@@ -75,6 +85,7 @@ public class StatsProperties {
 						}
 						newContract.startListingsScheduler();
 						contractCollection.addContract(newContract);
+						newContract.setIsSlug(isSlug);
 						
 					} catch (Exception e) {
 						LOGGER.error("Check properties ($.contracts.listins[]) should contain EACH: " + Arrays.toString(FIELDS) + " with optional: " + Arrays.toString(OPTIONALFIELDS) + ", Exception: " + e.getMessage());

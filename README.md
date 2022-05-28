@@ -35,6 +35,7 @@ nft-bot:
     commandPrefix: <DISCORD-COMMAND-PREFIX>
   stats:
     - contractAddress: <PLACE A ERC-721 CONTRACT ADDRESS>
+      contractSlug: <for SOL. Overrides the contractAddress value above>
       interval: <PLACE INTERVAL IN MS: EX. 30000 = 30 SECONDS>
       enableHolders*: <boolean to enable the next value>
       holdersOutputChannelId*: <Discord channel id>

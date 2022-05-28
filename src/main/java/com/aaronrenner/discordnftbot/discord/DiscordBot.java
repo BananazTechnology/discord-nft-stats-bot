@@ -3,12 +3,11 @@ package com.aaronrenner.discordnftbot.discord;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.activity.ActivityType;
+import org.javacord.api.entity.channel.ServerChannel;
 import org.javacord.api.entity.permission.Permissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.aaronrenner.discordnftbot.models.Contract;
 import com.aaronrenner.discordnftbot.models.DiscordProperties;
-import com.aaronrenner.discordnftbot.models.Ticker;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -34,12 +33,12 @@ public class DiscordBot {
 		}
 	}
 	
-	public void updateStatus(Contract contract) {
-		this.disc.updateActivity(ActivityType.WATCHING, String.format("the %s%s floor!", contract.getFloor(), Ticker.ETH.getSymbol()));
+	public void updateStatus(String floorValueWithTicker) {
+		this.disc.updateActivity(ActivityType.WATCHING, String.format("the %s%s floor!", floorValueWithTicker));
 	}
 	
-	public void updateHolders(Contract contract) {
-		contract.getServerChannel().updateName(String.format("Holders: %s", contract.getHolders()));
+	public void updateHolders(ServerChannel out, String holders) {
+		out.updateName(String.format("Holders: %s", holders));
 	}
 	
 	private void startupLogger() throws JsonProcessingException {

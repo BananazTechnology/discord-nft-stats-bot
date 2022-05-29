@@ -37,6 +37,10 @@ jobs:
       - name: Extract Maven project version
         run: echo ::set-output name=version::$(bash mvnw -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
         id: project
+      # Get project name
+      - name: Extract Maven artifactId
+        run: echo ::set-output name=artifactId::$(bash mvnw -q -Dexec.executable=echo -Dexec.args='${project.artifactId}' --non-recursive exec:exec)
+        id: artifact
       #
       # Run Docker stuff
       #
@@ -56,7 +60,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: arennerwv/discord-nft-stats-bot:latest, arennerwv/discord-nft-stats-bot:${{ steps.project.outputs.version }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.artifact.outputs.artifactId }}:latest, ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.artifact.outputs.artifactId }}:${{ steps.project.outputs.version }}
           labels: |
             com.aaronrenner.bot.version=${{ steps.project.outputs.version }}
-

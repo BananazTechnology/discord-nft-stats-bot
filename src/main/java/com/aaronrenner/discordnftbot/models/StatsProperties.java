@@ -84,8 +84,8 @@ public class StatsProperties {
 							newContract.setServerChannel(outputChannel);
 						}
 						newContract.startListingsScheduler();
-						contractCollection.addContract(newContract);
 						newContract.setIsSlug(isSlug);
+						contractCollection.addContract(newContract);
 						
 					} catch (Exception e) {
 						LOGGER.error("Check properties ($.contracts.listins[]) should contain EACH: " + Arrays.toString(FIELDS) + " with optional: " + Arrays.toString(OPTIONALFIELDS) + ", Exception: " + e.getMessage());

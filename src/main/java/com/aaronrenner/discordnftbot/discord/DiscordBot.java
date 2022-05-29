@@ -34,7 +34,7 @@ public class DiscordBot {
 	}
 	
 	public void updateStatus(String floorValueWithTicker) {
-		this.disc.updateActivity(ActivityType.WATCHING, String.format("the %s%s floor!", floorValueWithTicker));
+		this.disc.updateActivity(ActivityType.WATCHING, String.format("the %s floor!", floorValueWithTicker));
 	}
 	
 	public void updateHolders(ServerChannel out, String holders) {

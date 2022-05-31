@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import com.aaronrenner.discordnftbot.discord.DiscordBot;
 import com.aaronrenner.discordnftbot.models.Contract;
 import com.aaronrenner.discordnftbot.models.Ticker;
+import com.aaronrenner.discordnftbot.utils.CoinPriceUtils;
 import com.aaronrenner.discordnftbot.utils.OpenseaUtils;
 
 import net.minidev.json.JSONObject;
@@ -21,9 +22,10 @@ public class StatsScheduler extends TimerTask {
 	private boolean active			= false;
 	private Timer timer 		 	= new Timer(); // creating timer
     private TimerTask task; // creating timer task
+    private CoinPriceUtils cpUtils = new CoinPriceUtils();
 	
 	/** Final */
-	private static final Logger LOGGER 		   = LoggerFactory.getLogger(StatsScheduler.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(StatsScheduler.class);
 
 
 	public StatsScheduler(Contract bindingContract, DiscordBot bot) {
@@ -64,6 +66,7 @@ public class StatsScheduler extends TimerTask {
 	
 	private void updateInfo() throws Exception {
 		logInfo();
+		
 		/** Make request */
 		OpenseaUtils api = new OpenseaUtils(this.bindingContract.getOpenseaApiKey());
 		JSONObject getCollectionStats = 
@@ -73,13 +76,15 @@ public class StatsScheduler extends TimerTask {
 		/** Get statistic items */
 		// Floor
 		String collectionFloor = getStats.getAsString("floor_price");
-		String tickerSymbol    = 
-				(this.bindingContract.getIsSlug()) ?
-						Ticker.SOL.getSymbol() :
-							Ticker.ETH.getSymbol();
-		String floorValue = String.format("%s%s", collectionFloor, tickerSymbol);
-		this.bot.updateStatus(floorValue);
+		String floorValue;
+		if(this.bindingContract.getIsSlug()) {
+			double floorAsDob = Double.valueOf(collectionFloor);
+			floorValue = String.format("%.02f%s", cpUtils.ethToSol(floorAsDob), Ticker.SOL.getSymbol());
+		} else {
+			floorValue = String.format("%.02f%s", Double.valueOf(collectionFloor), Ticker.ETH.getSymbol());
+		}
 		
+		this.bot.updateStatus(floorValue);
 
 		String holders = getStats.getAsString("num_owners");
 		if(this.bindingContract.isEnableHolders()) {

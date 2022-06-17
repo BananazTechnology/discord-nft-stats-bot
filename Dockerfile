@@ -1,5 +1,5 @@
 # Use the official image as a parent image.
-FROM maven:3-openjdk-11
+FROM maven:3-openjdk-11-slim
 
 # Set the working directory.
 WORKDIR /usr/local/

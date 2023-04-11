@@ -1,5 +1,3 @@
-[![SOFT](https://github.com/Aman7123/discord-nft-stats-bot/actions/workflows/SOFT.yml/badge.svg?branch=develop)](https://github.com/Aman7123/discord-nft-stats-bot/actions/workflows/SOFT.yml)[![RELEASE](https://github.com/Aman7123/discord-nft-stats-bot/actions/workflows/RELEASE.yml/badge.svg?branch=main)](https://github.com/Aman7123/discord-nft-stats-bot/actions/workflows/RELEASE.yml)
-
 # Discord NFT Stats Bot
 * Description: A Discord bot made with @Javacord and @ProjectOpenSea API!
 * Version: (Check main for release or develop for dev)
